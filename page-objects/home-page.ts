@@ -6,6 +6,9 @@ export class HomePage{
     readonly itemNameLabel: Locator;
     readonly productContainer: Locator;
     readonly cartButton: Locator;
+    readonly sidebarButton: Locator;
+    readonly logoutLink: Locator;
+    readonly resetAppStateLink: Locator;
 
     constructor(page: Page){
         this.page = page;
@@ -13,7 +16,9 @@ export class HomePage{
         this.itemNameLabel = page.locator('div.inventory_item_name');
         this.productContainer = page.locator('div.inventory_item');
         this.cartButton = page.locator('div#shopping_cart_container');
-
+        this.sidebarButton = page.getByText('Open Menu');
+        this.logoutLink = page.locator('#logout_sidebar_link');
+        this.resetAppStateLink = page.locator('#reset_sidebar_link');
     }
 
     async verifyHomePageIsDisplayed(){
@@ -31,6 +36,18 @@ export class HomePage{
 
     async verifyCartNumber(amount: string){
         await expect(this.cartButton).toContainText(amount);
+    }
+
+    async clickOnSidebarButton(){
+        await this.sidebarButton.click({force: true});
+    }
+
+    async clickOnLogoutLink(){
+        await this.logoutLink.click()
+    }
+
+    async clickOnResetAppStateLink(){
+        await this.resetAppStateLink.click();
     }
 
 }
